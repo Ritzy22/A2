@@ -13,7 +13,7 @@ class A2Topology( Topo ):
 
     def build( self ):
         # Add hosts and switches
-        usr = self.addHost( 'usr', ip= '10.0.0.69')
+        h99 = self.addHost( 'h99', ip= '10.0.0.69')
         h1 = self.addHost( 'h1',ip='10.0.0.1' )
         h2 = self.addHost( 'h2',ip='10.0.0.2' )
         h3 = self.addHost( 'h3',ip='10.0.0.3' )
@@ -29,7 +29,7 @@ class A2Topology( Topo ):
         s4 = self.addSwitch( 's4' ) #low bw
 
         # Add links
-        self.addLink( usr, s1)
+        self.addLink( h99, s1)
         self.addLink( h1, s2 )
         self.addLink( h2, s2 )
         self.addLink( h3, s2 )
