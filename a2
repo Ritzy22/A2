@@ -1,4 +1,4 @@
-# run using sudo mn --custom a2_2.py --topo=a2_topo --link tc
+# run using sudo mn --custom a2.py --topo=a2_topo --link tc --controller remote,ip=172.17.0.5
 #
 #
 from mininet.net import Mininet
@@ -13,6 +13,7 @@ class A2Topology( Topo ):
 
     def build( self ):
         # Add hosts and switches
+        usr = self.addHost( 'usr', ip= '10.0.0.69')
         h1 = self.addHost( 'h1',ip='10.0.0.1' )
         h2 = self.addHost( 'h2',ip='10.0.0.2' )
         h3 = self.addHost( 'h3',ip='10.0.0.3' )
@@ -23,11 +24,12 @@ class A2Topology( Topo ):
         h8 = self.addHost( 'h8',ip='10.0.0.8' )
         h9 = self.addHost( 'h9',ip='10.0.0.9' )
         s1 = self.addSwitch( 's1' )
-        s2 = self.addSwitch( 's2' )
-        s3 = self.addSwitch( 's3' )
-        s4 = self.addSwitch( 's4' )
+        s2 = self.addSwitch( 's2' ) #high bw
+        s3 = self.addSwitch( 's3' ) #poor bw
+        s4 = self.addSwitch( 's4' ) #low bw
 
         # Add links
+        self.addLink( usr, s1)
         self.addLink( h1, s2 )
         self.addLink( h2, s2 )
         self.addLink( h3, s2 )
@@ -37,10 +39,13 @@ class A2Topology( Topo ):
         self.addLink( h7, s4 )
         self.addLink( h8, s4 )
         self.addLink( h9, s4 )
-        #need to workout what high low poor bandwidth is defined as
-        self.addLink( s1, s2, bw=100 )
-        self.addLink( s1, s3, bw=25 )
-        self.addLink( s1, s4, bw=1 )
+        
+        
+        
+        # Set BW
+        self.addLink( s1, s2, bw=12 ) # high bw = 2-4Mbps per user (video + voice)
+        self.addLink( s1, s3, bw=0.3 ) # poor bw = 100kbps (min) per user (voice)
+        self.addLink( s1, s4, bw=3 ) # low bw = 1Mbps per user (datanetwork)
 
 
 topos = {
