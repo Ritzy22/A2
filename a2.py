@@ -44,7 +44,7 @@ class A2Topology( Topo ):
         
         # Set BW
         self.addLink( s1, s2, bw=12 ) # high bw = 2-4Mbps per user (video + voice)
-        self.addLink( s1, s3, bw=0.3, jitter='1', loss=1 ) # poor bw = 100kbps (min) per user (voice)
+        self.addLink( s1, s3, bw=0.3, jitter='10', loss=2 ) # poor bw = 100kbps (min) per user (voice)
         self.addLink( s1, s4, bw=3 ) # low bw = 1Mbps per user (datanetwork)
 
 
